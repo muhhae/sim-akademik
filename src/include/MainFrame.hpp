@@ -15,7 +15,7 @@ class MainFrame : public wxFrame
         dt::CustomParser mahasiswa;
         wxListView* list;
         void onListResize(wxEvent& evt);
-        void listUpdate(dt::CustomParser& customParser);
+        void listUpdate(dt::CustomParser& customParser, std::string * str);
         void addToList(int index, std::vector<std::string> str);
         void okbt(wxEvent& evt);
 };  

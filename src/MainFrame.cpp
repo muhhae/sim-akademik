@@ -15,7 +15,6 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title)
     mahasiswa.setSource("data/mahasiswa");
     mahasiswa.load();
 
-    listUpdate(mahasiswa);
 
     list->Bind(wxEVT_SIZE, &MainFrame::onListResize, this);
 
@@ -46,15 +45,17 @@ void MainFrame::onListResize(wxEvent& evt)
 
 void MainFrame::okbt(wxEvent& evt)
 {
-    listUpdate(mahasiswa);
+    std::string arr[] = {"NRP", "Nama", "Jurusan"};
+    listUpdate(mahasiswa, arr);
 }
 
-void MainFrame::listUpdate(dt::CustomParser &customParser)
+void MainFrame::listUpdate(dt::CustomParser &customParser, std::string * str)
 {
     list->ClearAll();
-    list->AppendColumn("NRP", wxLIST_FORMAT_LEFT);
-    list->AppendColumn("NAMA", wxLIST_FORMAT_LEFT);
-    list->AppendColumn("SajaTes", wxLIST_FORMAT_LEFT);
+    for (int i = 0; i < str->size(); i++)
+    {
+        list->AppendColumn(str[i]);
+    }
 
     list->SetColumnWidth(0, list->GetSize().GetWidth() * 0.2 > 200 ? 200 : list->GetSize().GetWidth() * 0.2);
     list->SetColumnWidth(2, list->GetSize().GetWidth() * 0.3 > 300 ? 300 : list->GetSize().GetWidth() * 0.3);
@@ -66,9 +67,10 @@ void MainFrame::listUpdate(dt::CustomParser &customParser)
     {
         std::vector<std::string> vec;
 
-        vec.push_back(data[i].get("nrp"));
-        vec.push_back(data[i].get("nama"));
-        vec.push_back(data[i].get("jurusan"));
+        for (int j = 0; j < str->size(); j++)
+        {
+            vec.push_back(data[i].get(str[j]));
+        }
 
         addToList(i, vec);
     }
