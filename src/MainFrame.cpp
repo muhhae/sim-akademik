@@ -2,37 +2,58 @@
 #include "include/CustomParser.hpp"
 #include <iostream>
 #include <vector>
+#include <array>
+#include <wx/msgdlg.h>
 
 MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title)
 {
+    mahasiswa.setSource("data/mahasiswa");
+    mahasiswa.load();
+    dosen.setSource("data/dosen");
+    dosen.load();
+    tendik.setSource("data/tendik");
+    tendik.load();
+
     wxPanel* panel = new wxPanel(this); 
     // panel->SetBackgroundColour("blue");
    
     wxBoxSizer* sizerBase = new wxBoxSizer(wxVERTICAL);
 
     list = new wxListView(panel, wxID_ANY, wxDefaultPosition, wxSize(300, 400));
-    
-    mahasiswa.setSource("data/mahasiswa");
-    mahasiswa.load();
-
 
     list->Bind(wxEVT_SIZE, &MainFrame::onListResize, this);
 
-    wxButton * ok = new wxButton(panel, wxID_ANY, "OK", wxDefaultPosition, wxSize(100, 50));
-    wxButton * no = new wxButton(panel, wxID_ANY, "NO", wxDefaultPosition, wxSize(100, 50));
+    wxButton * ok = new wxButton(panel, wxID_ANY, "OK", wxDefaultPosition, wxSize(75, -1));
+    wxButton * detail = new wxButton(panel, wxID_ANY, "Detail", wxDefaultPosition, wxSize(75, -1));
+
+    wxArrayString jenis;
+    jenis.Add("Mahasiswa");
+    jenis.Add("Dosen");
+    jenis.Add("Tendik");
+
+    jenisCtrl = new wxChoice(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, jenis);
 
     ok->Bind(wxEVT_BUTTON, &MainFrame::okbt, this);
+    detail->Bind(wxEVT_BUTTON, MainFrame::detailClicked, this);
+    jenisCtrl->Bind(wxEVT_CHOICE, &MainFrame::onChoiceUpdate, this);
+
+    jenisCtrl->Select(0);
+    
+    std::vector<std::string> str = {"NRP", "Nama", "Jurusan"};
+    currentParser = mahasiswa;
+    listUpdate(currentParser, str);
 
     wxBoxSizer * sizerCenter = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer * sizerBottom = new wxBoxSizer(wxHORIZONTAL);
 
+    sizerBottom->Add(jenisCtrl, 0, wxALIGN_LEFT | wxLEFT | wxRIGHT | wxTOP, 10);
+    sizerBottom->Add(ok, 0, wxALIGN_LEFT | wxLEFT | wxRIGHT | wxTOP, 10);
+    sizerBottom->Add(detail, 0, wxALIGN_LEFT | wxLEFT | wxRIGHT | wxTOP, 10);
+
+    sizerBase->Add(sizerBottom, 0, wxEXPAND);
 
     sizerBase->Add(list, 1, wxEXPAND | wxALL, 10);
 
-    sizerBottom->Add(ok, 0, wxALIGN_LEFT | wxALL, 10);
-    sizerBottom->Add(no, 0, wxALIGN_LEFT | wxALL, 10);
-
-    sizerBase->Add(sizerBottom, 0, wxEXPAND);
     panel->SetSizerAndFit(sizerBase);
 }
 
@@ -45,15 +66,48 @@ void MainFrame::onListResize(wxEvent& evt)
 
 void MainFrame::okbt(wxEvent& evt)
 {
-    std::string arr[] = {"NRP", "Nama", "Jurusan"};
-    listUpdate(mahasiswa, arr);
+    // std::string arr[] = {"NRP", "Nama", "Jurusan"};
+    std::vector<std::string> str = {"NRP", "Nama"};
+    listUpdate(mahasiswa, str);
 }
 
-void MainFrame::listUpdate(dt::CustomParser &customParser, std::string * str)
+void MainFrame::detailClicked(wxEvent& evt)
+{
+    
+    wxMessageBox("Tes");
+}
+
+void MainFrame::onChoiceUpdate(wxEvent& evt)
+{
+    int select = jenisCtrl->GetSelection();
+    std::vector<std::string> str;
+
+    switch (select)
+    {
+        case 0 :
+            str = {"NRP", "Nama", "Jurusan"};
+            currentParser = mahasiswa;
+            break;
+        case 1 :
+            str = {"NIM", "Nama"};
+            currentParser = dosen;
+            break;
+        case 2 :
+            str = {"NIM", "Nama"};
+            currentParser = tendik;
+            break;
+    }
+
+    listUpdate(currentParser, str);
+}
+
+void MainFrame::listUpdate(dt::CustomParser &customParser, std::vector<std::string> str)
 {
     list->ClearAll();
-    for (int i = 0; i < str->size(); i++)
+
+    for (int i = 0; i < str.size(); i++)
     {
+        // wxMessageBox(std::to_string(str.size()));
         list->AppendColumn(str[i]);
     }
 
@@ -67,7 +121,7 @@ void MainFrame::listUpdate(dt::CustomParser &customParser, std::string * str)
     {
         std::vector<std::string> vec;
 
-        for (int j = 0; j < str->size(); j++)
+        for (int j = 0; j < str.size(); j++)
         {
             vec.push_back(data[i].get(str[j]));
         }

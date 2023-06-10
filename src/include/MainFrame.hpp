@@ -13,11 +13,20 @@ class MainFrame : public wxFrame
         MainFrame(const wxString& title);
     private:
         dt::CustomParser mahasiswa;
+        dt::CustomParser dosen;
+        dt::CustomParser tendik;
+
+        dt::CustomParser currentParser;
+
         wxListView* list;
+        wxChoice* jenisCtrl;
+
         void onListResize(wxEvent& evt);
-        void listUpdate(dt::CustomParser& customParser, std::string * str);
+        void listUpdate(dt::CustomParser& customParser, std::vector<std::string> str);
         void addToList(int index, std::vector<std::string> str);
         void okbt(wxEvent& evt);
+        void onChoiceUpdate(wxEvent& evt);
+        void detailClicked(wxEvent& evt);
 };  
 
 #endif
