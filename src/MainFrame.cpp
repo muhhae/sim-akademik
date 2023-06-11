@@ -75,29 +75,21 @@ void MainFrame::okbt(wxEvent& evt)
 
 void MainFrame::detailClicked(wxEvent& evt)
 {
-    // int index = list->GetFirstSelected(); 
-    
+    int index = list->GetFirstSelected(); 
 
-    // if (index < 0)
-    // {
-    //     wxMessageDialog dialog(this,"Pilih terlebih dahulu", "Detail");
-    //     dialog.ShowModal();
-    //     return;
-    // }
+    if (index < 0)
+    {
+        wxMessageDialog dialog(this,"Pilih terlebih dahulu", "Detail");
+        dialog.ShowModal();
+        return;
+    }
 
-    // std::string str;
-    // dt::Entity et = currentParser.get().at(index);
-    
-    // for (const auto& dt : et.getDt())`
-    // {
-    //     str += dt.type + "\t: " + dt.value + "\n";
-    // }
+    std::string str;
+    dt::Entity et = currentParser.get().at(index);
 
-    // wxMessageDialog dialog(this, str, "Detail", wxICON_NONE);
-    // dialog.ShowModal();
-
-    DetailDialog dialog(this);
+    DetailDialog dialog(this, et);
     dialog.ShowModal();
+    currentParser.update();
 }
 
 void MainFrame::onChoiceUpdate(wxEvent& evt)

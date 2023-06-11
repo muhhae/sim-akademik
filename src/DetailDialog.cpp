@@ -1,17 +1,19 @@
 #include "include/DetailDialog.hpp"
 
-DetailDialog::DetailDialog(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size, long style) : wxDialog(parent, id, title, pos, size, style)
+DetailDialog::DetailDialog(wxWindow *parent, dt::Entity& entity, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size, long style) : wxDialog(parent, id, title, pos, size, style)
 {
     wxPanel* panel = new wxPanel(this);
     wxBoxSizer* baseSizer = new wxBoxSizer(wxVERTICAL);
 
-    panel->SetBackgroundColour("yellow");
+    std::vector<wxStaticText*> txtVector;
+    this->SetFont(this->GetFont().Scale(1.5));
 
-    button1 = new wxButton(panel, wxID_ANY, "Tombol 1");
-    button2 = new wxButton(panel, wxID_ANY, "Tombol 2");
-
-    baseSizer->Add(button1, 0, wxALL, 10); 
-    baseSizer->Add(button2, 0, wxALL, 10);
+    for (const auto& data : entity.getDt())
+    {
+        std::string str = data.type + "\t: " + data.value;
+        txtVector.push_back(new wxStaticText(panel, wxID_ANY, str));
+        baseSizer->Add(txtVector.back(), 0, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 10);
+    }
 
     panel->SetSizerAndFit(baseSizer);
 }
