@@ -34,7 +34,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title)
     jenisCtrl = new wxChoice(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, jenis);
 
     ok->Bind(wxEVT_BUTTON, &MainFrame::okbt, this);
-    detail->Bind(wxEVT_BUTTON, MainFrame::detailClicked, this);
+    detail->Bind(wxEVT_BUTTON, &MainFrame::detailClicked, this);
     jenisCtrl->Bind(wxEVT_CHOICE, &MainFrame::onChoiceUpdate, this);
 
     jenisCtrl->Select(0);
@@ -73,8 +73,26 @@ void MainFrame::okbt(wxEvent& evt)
 
 void MainFrame::detailClicked(wxEvent& evt)
 {
+    int index = list->GetFirstSelected(); 
     
-    wxMessageBox("Tes");
+
+    if (index < 0)
+    {
+        wxMessageDialog dialog(this,"Pilih terlebih dahulu", "Detail");
+        dialog.ShowModal();
+        return;
+    }
+
+    std::string str;
+    dt::Entity et = currentParser.get().at(index);
+    
+    for (const auto& dt : et.getDt())
+    {
+        str += dt.type + "\t: " + dt.value + "\n";
+    }
+
+    wxMessageDialog dialog(this, str, "Detail", wxICON_NONE);
+    dialog.ShowModal();
 }
 
 void MainFrame::onChoiceUpdate(wxEvent& evt)

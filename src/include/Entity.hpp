@@ -22,6 +22,7 @@ namespace dt
             
             void set(std::string type, std::string value);
             std::string get(std::string type);
+            std::vector<dataStruct> getDt();
 
             void AppendToString(std::string& str);
     };

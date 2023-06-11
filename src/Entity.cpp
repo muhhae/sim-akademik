@@ -54,4 +54,9 @@ namespace dt
         }
         str += "@@@";
     }
+
+    std::vector<dt::Entity::dataStruct> Entity::getDt()
+    {
+        return data;
+    }
 }
