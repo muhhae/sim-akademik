@@ -1,5 +1,7 @@
 #include "include/MainFrame.hpp"
 #include "include/CustomParser.hpp"
+#include "include/DetailDialog.hpp"
+
 #include <iostream>
 #include <vector>
 #include <array>
@@ -73,25 +75,28 @@ void MainFrame::okbt(wxEvent& evt)
 
 void MainFrame::detailClicked(wxEvent& evt)
 {
-    int index = list->GetFirstSelected(); 
+    // int index = list->GetFirstSelected(); 
     
 
-    if (index < 0)
-    {
-        wxMessageDialog dialog(this,"Pilih terlebih dahulu", "Detail");
-        dialog.ShowModal();
-        return;
-    }
+    // if (index < 0)
+    // {
+    //     wxMessageDialog dialog(this,"Pilih terlebih dahulu", "Detail");
+    //     dialog.ShowModal();
+    //     return;
+    // }
 
-    std::string str;
-    dt::Entity et = currentParser.get().at(index);
+    // std::string str;
+    // dt::Entity et = currentParser.get().at(index);
     
-    for (const auto& dt : et.getDt())
-    {
-        str += dt.type + "\t: " + dt.value + "\n";
-    }
+    // for (const auto& dt : et.getDt())`
+    // {
+    //     str += dt.type + "\t: " + dt.value + "\n";
+    // }
 
-    wxMessageDialog dialog(this, str, "Detail", wxICON_NONE);
+    // wxMessageDialog dialog(this, str, "Detail", wxICON_NONE);
+    // dialog.ShowModal();
+
+    DetailDialog dialog(this);
     dialog.ShowModal();
 }
 

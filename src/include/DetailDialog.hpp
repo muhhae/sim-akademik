@@ -5,6 +5,9 @@
 class DetailDialog : public wxDialog
 {
     private :
+        wxButton* button1;
+        wxButton* button2;
     public :
-        DetailDialog();
+        DetailDialog(wxWindow *parent, wxWindowID id = wxID_ANY, const wxString &title = "Detail", const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE);
+
 };
