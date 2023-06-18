@@ -4,8 +4,8 @@
 WX_CONFIG = wx-config
 
 CC = g++
-CXXFLAGS = $(shell $(WX_CONFIG) --cxxflags)
-LDFLAGS = $(shell $(WX_CONFIG) --libs)
+CXXFLAGS = $(shell $(WX_CONFIG) --cxxflags) 
+LDFLAGS = $(shell $(WX_CONFIG) --libs) 
 
 # Makefile settings - Can be customized.
 APPNAME = App

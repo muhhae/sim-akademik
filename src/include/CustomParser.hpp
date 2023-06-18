@@ -23,6 +23,7 @@ namespace dt
             void add(Entity et);
             void load();
             void update();
+            void deleteData(int index);
 
             void print();
     };

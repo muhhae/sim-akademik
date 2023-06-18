@@ -1,21 +1,35 @@
 Nama=Muhammad Tendik 1
 NIM=001239
+userID=ADMIN1
+password=ADMIN1
 @@@
 Nama=Tes Di Coba
 NIM=002239
+userID=ADMIN2
+password=ADMIN2
 @@@
 Nama=Si Anu Tendik
 NIM=003239
+userID=ADMIN3
+password=ADMIN3
 @@@
 Nama=Noh Si Tendik
 NIM=004239
+userID=ADMIN4
+password=ADMIN4
 @@@
 Nama=Gk tau
 NIM=005239
+userID=ADMIN5
+password=ADMIN5
 @@@
 Nama=Siapa dia
 NIM=006239
+userID=ADMIN6
+password=ADMIN6
 @@@
 Nama=Tambah gk Tau
 NIM=007239
+userID=ADMIN7
+password=ADMIN7
 @@@

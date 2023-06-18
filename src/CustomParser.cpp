@@ -81,6 +81,11 @@ namespace dt
         dt_file.close();
     }
 
+    void CustomParser::deleteData(int index)
+    {
+        entity.erase(entity.begin() + index);
+    }
+
     void CustomParser::print()
     {
         std::string temp_data = ""; 

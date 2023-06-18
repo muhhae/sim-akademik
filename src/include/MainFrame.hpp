@@ -11,22 +11,16 @@ class MainFrame : public wxFrame
 {
     public: 
         MainFrame(const wxString& title);
+        void logOut(wxEvent& evt);
+        void login(std::string userID, std::string password);
     private:
+        wxPanel* panel;
+        wxBoxSizer* base;
+
         dt::CustomParser mahasiswa;
         dt::CustomParser dosen;
         dt::CustomParser tendik;
-
         dt::CustomParser currentParser;
-
-        wxListView* list;
-        wxChoice* jenisCtrl;
-
-        void onListResize(wxEvent& evt);
-        void listUpdate(dt::CustomParser& customParser, std::vector<std::string> str);
-        void addToList(int index, std::vector<std::string> str);
-        void okbt(wxEvent& evt);
-        void onChoiceUpdate(wxEvent& evt);
-        void detailClicked(wxEvent& evt);
-};  
+};
 
 #endif
