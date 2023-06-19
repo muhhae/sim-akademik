@@ -14,6 +14,6 @@ class InputDialog : public wxDialog
         dt::Entity entity;
 
     public:
-        InputDialog(wxWindow *parent, dt::Entity data, wxWindowID id = wxID_ANY, const wxString &title = "Detail", const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxDefaultSize, long style = wxRESIZE_BORDER);
+        InputDialog(wxWindow *parent, dt::Entity data, wxWindowID id = wxID_ANY, const wxString &title = "Detail", const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxDefaultSize, long style = wxRESIZE_BORDER | wxDEFAULT_DIALOG_STYLE);
         dt::Entity GetEntity();
 };

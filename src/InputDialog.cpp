@@ -13,6 +13,8 @@ InputDialog::InputDialog(wxWindow *parent, dt::Entity data, wxWindowID id, const
     grid->AddGrowableCol(1, 2);
     grid->AddGrowableCol(0, 1);
 
+    panel->SetBackgroundColour(wxColor(128,156,192,255));
+
     for (const auto & dt : data.getDt())
     {
         wxStaticText* label = new wxStaticText(panel, wxID_ANY, dt.type);

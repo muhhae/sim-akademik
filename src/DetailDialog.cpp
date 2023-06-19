@@ -4,6 +4,7 @@ DetailDialog::DetailDialog(wxWindow *parent, dt::Entity& entity, wxWindowID id, 
 {
     wxPanel* panel = new wxPanel(this);
     et = &entity;
+    panel->SetBackgroundColour(wxColor(128,156,192,255));
     
     // panel->SetBackgroundColour("white");
     wxBoxSizer* baseSizer = new wxBoxSizer(wxVERTICAL);

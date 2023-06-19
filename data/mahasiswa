@@ -3,7 +3,7 @@ NRP=5024221015
 semester=2
 IPK=3.4
 Jurusan=Teknik Perlelean
-Tagihan=Lunas
+Tagihan=6 Jt
 @@@
 Nama=Muhammad Sumbul
 NRP=5024221012
@@ -11,13 +11,6 @@ semester=2
 IPK=3.4
 Jurusan=Teknik Fisika
 Tagihan=Belum Lunas
-@@@
-Nama=Si Anu
-NRP=5024221016
-semester=2
-IPK=3.4
-Jurusan=Teknik Coba Coba
-Tagihan=Lunas
 @@@
 Nama=tes dicoba
 NRP=123
@@ -46,4 +39,11 @@ semester=4
 IPK=3.2
 Jurusan=Teknik Komputer 
 Tagihan=Belum Lunas 16 semester
+@@@
+Nama=Hasan Palito
+NRP=5024221042
+semester=2
+IPK=3.9
+Jurusan=Teknik Komputer
+Tagihan=2 Milyar
 @@@

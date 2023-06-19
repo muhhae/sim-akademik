@@ -3,6 +3,7 @@
 
 AdminPanel::AdminPanel(wxFrame * parent, dt::CustomParser* mahasiswa, dt::CustomParser* dosen, dt::CustomParser* tendik) : wxPanel(parent, wxID_ANY)
 {
+    SetBackgroundColour(wxColor(128,156,192,255));
     wxBoxSizer* sizerBase = new wxBoxSizer(wxVERTICAL);
 
     list = new wxListView(this, wxID_ANY, wxDefaultPosition);
@@ -12,6 +13,7 @@ AdminPanel::AdminPanel(wxFrame * parent, dt::CustomParser* mahasiswa, dt::Custom
     wxButton * ok = new wxButton(this, wxID_ANY, "Add", wxDefaultPosition, wxSize(75, -1));
     wxButton * detail = new wxButton(this, wxID_ANY, "Detail", wxDefaultPosition, wxSize(75, -1));
     wxButton * deleteDt = new wxButton(this, wxID_ANY, "Delete", wxDefaultPosition, wxSize(75, -1));
+
 
     wxArrayString jenis;
     jenis.Add("Mahasiswa");
