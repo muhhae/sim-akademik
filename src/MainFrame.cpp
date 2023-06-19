@@ -51,7 +51,7 @@ void MainFrame::login(std::string userID, std::string password)
 
     if (tendik.find("userID", userID).get("password") == password) verified = true; 
 
-    if (!verified) return;
+    if (!verified || password == "") return;
 
     wxSize sizeTemp = GetSize();
     if (panel) panel->Destroy();

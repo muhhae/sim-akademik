@@ -30,7 +30,7 @@ InputDialog::InputDialog(wxWindow *parent, dt::Entity data, wxWindowID id, const
 
     base->Add(grid, 1, wxEXPAND | wxALL, 20);
     base->AddStretchSpacer();
-    base->Add(buttonSizer, 1, wxEXPAND | wxALL, 20);
+    base->Add(buttonSizer, 0, wxEXPAND | wxALL, 20);
 
     panel->SetSizerAndFit(base);
 }

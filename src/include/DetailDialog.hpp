@@ -7,9 +7,10 @@
 class DetailDialog : public wxDialog
 {
     private :
-        wxButton* button1;
-        wxButton* button2;
+        dt::Entity* et;
+        std::vector<wxStaticText*> valueVector;
     public :
-        DetailDialog(wxWindow *parent, dt::Entity& entity, wxWindowID id = wxID_ANY, const wxString &title = "Detail", const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE);
-
+        void editData(wxEvent & evt);
+        DetailDialog(wxWindow *parent, dt::Entity& entity, wxWindowID id = wxID_ANY, const wxString &title = "Detail", const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxDefaultSize, long style = wxRESIZE_BORDER);
+        dt::Entity getEt();
 };

@@ -101,12 +101,13 @@ void AdminPanel::detailClicked(wxEvent& evt)
         return;
     }
     // wxMessageBox("2");
-    std::string str;
-    dt::Entity et = currentParser->get().at(index);
-    // wxMessageBox("3");
-    DetailDialog dialog(this, et);
+    std::string namaIndex = currentParser->get().at(index).get("Nama");
+    dt::Entity* et = &(currentParser->find("Nama", namaIndex)); 
+    DetailDialog dialog(this, *et);
     dialog.ShowModal();
-    // wxMessageBox("4");
+
+    currentParser->update();
+    listUpdate(*currentParser, showLabel.at(jenisCtrl->GetSelection()));
 }
 
 void AdminPanel::onChoiceUpdate(wxEvent& evt)

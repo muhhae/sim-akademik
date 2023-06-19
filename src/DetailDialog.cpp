@@ -3,31 +3,53 @@
 DetailDialog::DetailDialog(wxWindow *parent, dt::Entity& entity, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size, long style) : wxDialog(parent, id, title, pos, size, style)
 {
     wxPanel* panel = new wxPanel(this);
+    et = &entity;
+    
     // panel->SetBackgroundColour("white");
     wxBoxSizer* baseSizer = new wxBoxSizer(wxVERTICAL);
 
-    std::vector<wxStaticText*> txtVector;
+    wxFlexGridSizer* grid = new wxFlexGridSizer(3, wxSize(5, 5));
+    grid->AddGrowableCol(1, 1);
+
+    int index = 0;
 
     for (const auto& data : entity.getDt())
     {
-        std::string str = data.type + "\t: " + data.value;
-        txtVector.push_back(new wxStaticText(panel, wxID_ANY, str));
-        baseSizer->Add(txtVector.back(), 0, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 10);
-        txtVector.back()->SetFont(this->GetFont().Scale(1.5));
+        wxStaticText* t = new wxStaticText(panel, wxID_ANY, data.type);
+        wxStaticText* v = new wxStaticText(panel, wxID_ANY, " : " + data.value);
+        wxButton* b = new wxButton(panel, index, "EDIT");
+
+        grid->Add(t, wxEXPAND);
+        grid->Add(v, wxEXPAND);
+        grid->Add(b, wxEXPAND);  
+
+        index++; 
+        b->Bind(wxEVT_BUTTON, &DetailDialog::editData, this);
+        valueVector.push_back(v);
+    }
+
+    wxButton * b = new wxButton( panel, wxID_OK, _("OK"), wxDefaultPosition, wxSize(50, -1));
+
+    baseSizer->Add(grid, 1, wxALL | wxEXPAND, 10);
+    baseSizer->Add(b, 0, wxALIGN_CENTER | wxALL, 10);
+    panel->SetSizerAndFit(baseSizer);
+}
+
+void DetailDialog::editData(wxEvent& evt)
+{
+    wxTextEntryDialog* in = new wxTextEntryDialog(this, "Nilai baru", "EDIT");
+    int ok = in->ShowModal();
+    std::string result = in->GetValue();
+    if (ok == wxID_OK)
+    {
+        std::string type = et->getDt().at(evt.GetId()).type;
+        et->set(type, result);
+        valueVector.at(evt.GetId())->SetLabel(" : " + result);
     }
     
-    wxBoxSizer* button = new wxBoxSizer(wxHORIZONTAL);
-    
-    wxButton * button1 = new wxButton(panel, wxID_ANY, "Tes");
-    button->Add(button1, 0, wxLEFT | wxRIGHT | wxTOP, 10);
+}
 
-    wxButton * button2 = new wxButton(panel, wxID_ANY, "Tes");
-    button->Add(button2, 0, wxLEFT | wxRIGHT | wxTOP, 10);
-
-    wxButton * button3 = new wxButton(panel, wxID_ANY, "Tes");
-    button->Add(button3, 0, wxLEFT | wxRIGHT | wxTOP, 10);
-
-    baseSizer->Add(button, 0, wxALIGN_CENTER);
-
-    panel->SetSizerAndFit(baseSizer);
+dt::Entity DetailDialog::getEt()
+{
+    return *et;
 }
